@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  selenium:
+    image: selenium/standalone-chromium:latest
+    container_name: selenium-chromium
+    shm_size: 6gb
+    ports:
+      - "4444:4444"  # WebDriver
+      - "5900:5900"  # VNC clásico
+      - "7900:7900"  # noVNC
+    environment:
+      - SE_NODE_MAX_SESSIONS=1
+      - SE_NODE_SESSION_TIMEOUT=300
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4444/wd/hub/status"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
