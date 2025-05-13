@@ -7,18 +7,16 @@ Resource    ../keywords/library/screenshots.robot
 Resource    ../resources/web/elements.robot
 Resource    ../../common/keywords/testing_environment.robot
 
-#* Resource
-# Library
-
 Test Setup       Run Keywords
     ...                 Start Selenium Container
-    ...                 Configurar ID del Test
-    ...                 Limpiar directorio de trabajo temporal
-    ...                 Crear estructura de directorios temporales
+    ...                 Configure Test ID
+    ...                 Clean temporary working directory
+    ...                 Create temporary directory structure
+
 
 Test Teardown    Run Keywords
     ...                 Close Browser in Selenium Container
-    ...                 Recolectar las evidencias
+    ...                 Collect Evidences
 #     ...                 Stop Selenium Container
 
 *** Test Cases ***
@@ -27,19 +25,9 @@ Valid Login
     [Documentation]     Confirm user can log in with valid credentials and reach product page.
     [Tags]              TC 1.1
 
-    Open Browser in Selenium Container
-    Set User Credentials From Env File
+    Given the user logs in with valid credentials
 
-    Input Text    ${ID_USERNAME_INPUT}     ${SAUCEDEMO_USERNAME}
-    Input Text    ${ID_PASSWORD_INPUT}     ${SAUCEDEMO_PASSWORD}
-    Capture screenshot as "login_filled"
-
-    Click Button  ${ID_LOGIN_BUTTON}
-    Capture screenshot as "after_login"
-
-    Wait Until Page Contains Element    ${XPATH_PRODUCTS_TITLE}    timeout=5s
-    Capture screenshot as "final_state"
-
+    Then user is redirected to the product page
 
 Invalid Login
     [Documentation]     Verify error message appears when logging in with invalid credentials.
