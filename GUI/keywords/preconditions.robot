@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    Precondition keywords.
-Resource    ../sessions.robot
+Resource    ./library/sessions.robot
 
 *** Keywords ***
 
