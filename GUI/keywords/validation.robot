@@ -1,9 +1,9 @@
 *** Settings ***
 Documentation    Validation keywords.
-Resource    ../sessions.robot
+
+Resource    ./library/sessions.robot
 
 *** Keywords ***
-
 
 User is redirected to the product page
     [Documentation]    Validates that the user is redirected to 
