@@ -10,16 +10,14 @@ Resource    ../../settings.robot
 
 *** Keywords ***
 
-Configurar ID del Test
+Configure Test ID
     [Documentation]    Searches for a tag that starts
     ...                with the specified substring and
     ...                sets it as a global variable for
     ...                test management purposes.
-    ${TEST_ID}=    Set Variable    UNDEFINED_TEST
-    @{TEST_TAGS_LIST}=    Get Variable Value    ${TEST_TAGS}
-    # Verify presence of Tags
+    ${TEST_ID} =    Set Variable    UNDEFINED_TEST
+    @{TEST_TAGS_LIST} =    Get Variable Value    ${TEST_TAGS}
     Should Not Be Empty    ${TEST_TAGS_LIST}    No Tags have been defined for the test. At least one identifier is required.
-    # Search for identifier tag
     FOR    ${TAG}    IN    @{TEST_TAGS_LIST}
         ${TAG_IS_KEY_CODE}=    Tag Starts With    ${TAG}    ${TEST_IDENTIFIER_BEGINNING}
         Run Keyword If    ${TAG_IS_KEY_CODE}    Log To Console    Test identifier tag found: "${TAG}".
@@ -47,12 +45,12 @@ Prepare a Clean Directory Structure
         Create Directory    ${MAIN_FOLDER_PATH}/${REQ_FOLDER}
     END
 
-Crear estructura de directorios temporales
+Create temporary directory structure
     [Documentation]    Generates the necessary directory 
     ...                structure within the temporary directory for each test.
     Prepare a Clean Directory Structure    ${TESTS_TEMP_WORKING_DIR}    ${TMP_FOLDERS_LIST}
 
-Recolectar las evidencias
+Collect Evidences
     [Documentation]    Moves the temporary working 
     ...                directory of the unit to an evidence folder 
     ...                based on the previously configured TestID.
@@ -62,17 +60,7 @@ Recolectar las evidencias
     Move Directory    ${TESTS_TEMP_WORKING_DIR}    ${TEST_EVIDENCES_FOLDER}
     Log To Console    Evidences collected.
 
-Delete Directories
-    [Documentation]    Cleans the specified working directory.
-    [Arguments]    ${MAIN_FOLDER_PATH}
-    Log To Console    Limpiando directorio "${MAIN_FOLDER_PATH}"...
-    Remove Directory    ${ABS_ROOT_PATH}/${MAIN_FOLDER_PATH}    recursive=True
-
-Clean Temporary Working Directory
-    [Documentation]    Removes the temporary working directories.
-    Delete Directories    /tmpWorkdir
-
-Limpiar directorio de trabajo temporal
+Clean temporary working directory
     [Documentation]    Limpia el directorio de trabajo temporal a ser usado en la ejecucion de un test.
     Remove Directory    ${TESTS_TEMP_WORKING_DIR}    recursive=True
 
