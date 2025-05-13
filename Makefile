@@ -37,3 +37,15 @@ clean-results:
 	@echo "Deleting all results"
 	rm -rf results/*
 	@echo "✔️  'results/' clean."
+
+# Corre la suite completa de GUI
+.PHONY: gui
+gui:
+	@echo "Running GUI suite..."
+	robot GUI/suite/
+
+# Corre la suite completa de API
+.PHONY: api
+api:
+	@echo "Running API suite..."
+	robot API/suite/
