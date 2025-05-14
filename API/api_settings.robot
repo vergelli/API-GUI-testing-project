@@ -14,6 +14,9 @@ ${BOOKING_SESSION}                  booking_session
 #* API content
 
 #* ----------------------------------
+&{PATCH_BODY}
+...    firstname=Fede
+
 &{BOOKING_DATES}
 ...    checkin=2018-01-01
 ...    checkout=2019-01-01
