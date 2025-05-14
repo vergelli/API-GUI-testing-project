@@ -10,15 +10,19 @@ Authenticate With Valid Credentials
     [Documentation]    POST /auth with valid credentials, store token.
     Set API User Credentials From Env File
     Create Session    auth    ${API_BASE_URL}
-    ${payload}=    Create Dictionary    username=${API_USER}    password=${API_PASS}
-    ${response}=    POST On Session    auth    ${AUTH_ENDPOINT}    json=${payload}
-    Should Be Equal As Integers    ${response.status_code}    200
-    ${json}=    Convert To Dictionary    ${response.json()}
+    ${PAYLOAD}=    Create Dictionary    username=${API_USER}    password=${API_PASS}
+    ${RESPONSE}=    POST On Session    auth    ${AUTH_ENDPOINT}    json=${PAYLOAD}
+    Should Be Equal As Integers    ${RESPONSE.status_code}    200
+    ${json}=    Convert To Dictionary    ${RESPONSE.json()}
     Set Suite Variable    ${AUTH_TOKEN}    ${json['token']}
 
 Authenticate With Invalid Credentials
     [Documentation]    POST /auth with invalid credentials, expect 403.
-    Create Session    auth    ${BASE_URL}
+    Create Session    auth    ${API_BASE_URL}
     ${payload}=    Create Dictionary    username=invalid    password=wrong
     ${response}=    POST On Session    auth    ${AUTH_ENDPOINT}    json=${payload}
-    Set Suite Variable    ${INVALID_RESPONSE}    ${response}
+    Set Suite Variable     ${INVALID_RESPONSE}   ${response}
+
+Create booking API session
+    [Documentation]    Create a persistent session to use in the tests
+    Create Session    ${BOOKING_SESSION}    ${API_BASE_URL}
