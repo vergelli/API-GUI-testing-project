@@ -36,7 +36,11 @@ Valid Login
 Invalid Login
     [Documentation]     Verify error message appears when logging in with invalid credentials.
     [Tags]              TC 1.2 GUI
-    Pass Execution    Mensaje
+
+    Given the user logs in with invalid credentials
+
+    Then an error message should be visible
+
 
 Add Single Product to Cart
     [Documentation]     Add a single product and verify the cart badge shows 1.
