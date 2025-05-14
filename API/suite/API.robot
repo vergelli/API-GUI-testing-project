@@ -85,7 +85,7 @@ Update Booking
     Create booking API session
 
     And a valid update payload is loaded
-    And the request headers with auth token are created
+    And a headers with auth token is created
 
     When an update booking request is sent
 
@@ -114,16 +114,41 @@ Unauthorized Update
 Delete Booking
     [Documentation]     Delete a booking using a valid token and verify it no longer exists.
     [Tags]              TC 4.1 API
-    Pass Execution    Mensaje
+
+    Given the authentication is valid with the given credentials
+    And a valid booking payload is loaded
+    And A booking API session is created
+
+    When a creation booking request is sent and the booking id is saved
+    And a headers with auth token is created
+    And delete a booking
+
+    Then the booking no longer exist on the data base
 
 
 Unauthorized Deletion
     [Documentation]     Ensure that deletion without a valid token is not allowed.
-    [Tags]              TC 4.1 API
-    Pass Execution    Mensaje
+    [Tags]              TC 4.2 API
+
+    Given a valid booking payload is loaded
+    And A booking API session is created
+
+    When a creation booking request is sent and the booking id is saved
+    And I delete the booking without an auth token
+
+    Then the deleted response should be "403"
 
 
 Partial Update
     [Documentation]     Perform a PATCH request to update a single field in a booking.
     [Tags]              TC 5.1 API
-    Pass Execution    Mensaje
+
+    Given the authentication is valid with the given credentials
+    And a valid booking payload is loaded
+    And A booking API session is created
+
+    When a creation booking request is sent and the booking id is saved
+    And a headers with auth token is created
+    And i perform a partial update on the booking
+
+    Then only the modified field should be updated
