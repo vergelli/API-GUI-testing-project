@@ -1,12 +1,13 @@
 *** Settings ***
 Documentation     restful-booker API Tests.
 
+Resource    ../../common/keywords/testing_environment.robot
 Resource    ../keywords/preconditions.robot
 Resource    ../keywords/execution.robot
 Resource    ../keywords/validation.robot
 Resource    ../keywords/library/authentication.robot
 Resource    ../keywords/library/ops.robot
-Resource    ../../common/keywords/testing_environment.robot
+Resource    ../keywords/library/utils.robot
 Resource    ../api_settings.robot
 
 Library     RequestsLibrary
@@ -15,6 +16,7 @@ Test Setup       Run Keywords
     ...                 Configure Test ID
     ...                 Clean temporary working directory
     ...                 Create temporary directory structure
+    ...                 Disable SSL Warnings
 
 Test Teardown    Run Keywords
     ...                 Collect Evidences
