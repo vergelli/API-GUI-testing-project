@@ -12,7 +12,7 @@ ${BOOKING_SESSION}                  booking_session
 
 #* ===================================================================
 #* API content
-
+${SSL_WARNINGS}                     ${True}
 #* ----------------------------------
 &{PATCH_BODY}
 ...    firstname=Fede
