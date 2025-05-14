@@ -12,10 +12,7 @@ The Auth Token Was Stored correctly
 
 The login response is invalid
     [Documentation]    Verify that the login response is invalid.
-    Should Be Equal As Integers    ${INVALID_RESPONSE.status_code}    403    
-    ...    Failure: Expected status code 403\nGot ${INVALID_RESPONSE.status_code} instead
-    ${BODY}=    Convert To Dictionary    ${INVALID_RESPONSE.json()}
-    Should Be Equal    ${BODY['reason']}    Bad credentials
+    Verify that the login is not successful
 
 The response is valid
     [Documentation]    Verify that the response is valid.
@@ -24,9 +21,11 @@ The response is valid
     A booking can be retrieved using the returned id
 
 The retrieved booking matches the original
+    [Documentation]    Verify that the retrieved booking matches the original payload.
     The retrieved booking equals the original payload
 
 The invalid booking does not exist
+    [Documentation]    Verify that the invalid booking does not exist.
     An invalid booking is retrieved using the id "non-existent-id"
 
 The booking data should be updated correctly
@@ -44,3 +43,15 @@ The response should be "${STATUS_CODE}"
 The update response should be "${STATUS_CODE}"
     [Documentation]    Verifies that the API rejects the request without a token with a 403.
     The update response status code should be "${STATUS_CODE}"
+
+The deleted response should be "${STATUS_CODE}"
+    [Documentation]    Verifies that the API rejects the request without a token with a 403.
+    The deleted response status code should be "${STATUS_CODE}"
+
+The booking no longer exist on the data base
+    [Documentation]    Verifies that the booking was successfully deleted.
+    The booking was deleted
+
+Only the modified field should be updated
+    [Documentation]    Verifies that only the modified field was updated.
+    Compares the updated booking data with the original payload
