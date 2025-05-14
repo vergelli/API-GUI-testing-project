@@ -14,15 +14,20 @@ Authenticate With Valid Credentials
     ${RESPONSE}=    POST On Session    auth    ${AUTH_ENDPOINT}    json=${PAYLOAD}
     Should Be Equal As Integers    ${RESPONSE.status_code}    200
     ${json}=    Convert To Dictionary    ${RESPONSE.json()}
-    Set Suite Variable    ${AUTH_TOKEN}    ${json['token']}
+    Set Test Variable    ${AUTH_TOKEN}    ${json['token']}
 
 Authenticate With Invalid Credentials
     [Documentation]    POST /auth with invalid credentials, expect 403.
     Create Session    auth    ${API_BASE_URL}
     ${payload}=    Create Dictionary    username=invalid    password=wrong
     ${response}=    POST On Session    auth    ${AUTH_ENDPOINT}    json=${payload}
-    Set Suite Variable     ${INVALID_RESPONSE}   ${response}
+    Set Test Variable     ${INVALID_RESPONSE}   ${response}
 
 Create booking API session
     [Documentation]    Create a persistent session to use in the tests
-    Create Session    ${BOOKING_SESSION}    ${API_BASE_URL}
+    Create Session    ${BOOKING_SESSION}    ${API_BASE_URL}    verify=false
+
+Get Valid Token
+    [Documentation]    Returns a valid token, authenticating if necessary.
+    ${EXIST}=    Run Keyword And Return Status    Variable Should Exist    ${AUTH_TOKEN}
+        Run Keyword If    not ${EXIST}    Authenticate With Valid Credentials
