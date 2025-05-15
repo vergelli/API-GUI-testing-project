@@ -38,7 +38,7 @@ Prepare a Clean Directory Structure
     [Documentation]    Cleans the temporary working 
     ...                directory and creates new folders.
     [Arguments]    ${MAIN_FOLDER_PATH}    ${INNER_FOLDER_NAMES}
-    Log To Console    Preparando estructura limpia de directorios
+    Log To Console    Preparing clean directory structure
     Remove Directory    ${MAIN_FOLDER_PATH}    recursive=True
     Create Directory    ${MAIN_FOLDER_PATH}
     FOR    ${REQ_FOLDER}    IN    @{INNER_FOLDER_NAMES}
@@ -58,7 +58,7 @@ Collect Evidences
     Remove Directory    ${TEST_EVIDENCES_FOLDER}    recursive=True
     Create Directory    ${TEST_EVIDENCES_FOLDER}
     Move Directory    ${TESTS_TEMP_WORKING_DIR}    ${TEST_EVIDENCES_FOLDER}
-    Log To Console    Evidences collected.
+    Log To Console    \nEvidences collected.
 
 Clean temporary working directory
     [Documentation]    Limpia el directorio de trabajo temporal a ser usado en la ejecucion de un test.
