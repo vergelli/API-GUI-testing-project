@@ -1,14 +1,8 @@
-# PwC-challenge-project
-
-## Project Overview
-
-This project aims to resolve both the API and GUI test automation challenges.
-
 ---
 
 ### A Greeting to You
 
-_Thanks for checking out my work! I didn’t want to miss the opportunity to greet whoever is reviewing this project. I hope this message finds you well, and that we can meet soon to move forward with this opportunity—which I’m really excited about._
+_Thanks for checking out my work! I didn’t want to miss the opportunity to greet whoever reviews this project. I hope this message finds you well, and that we can meet soon to move forward with this opportunity—which I’m really excited about._
 
 _Best regards,  
 Federico J. V._
