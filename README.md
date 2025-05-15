@@ -77,6 +77,10 @@ Federico J. V._
                 └──.env
     ```
 
+    **Note:**
+    > Storing credentials—even dummy ones—in `.env` files within versioned folders isn't a secure practice.  
+    > However, due to limited time constraints, I opted for simplicity  over best practices.  
+    > In a real-world scenario, sensitive variables would be managed diferently.
 2. **Pull the Selenium image**
 
     Let’s pull the required Docker image:
