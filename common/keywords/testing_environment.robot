@@ -51,13 +51,21 @@ Create temporary directory structure
     Prepare a Clean Directory Structure    ${TESTS_TEMP_WORKING_DIR}    ${TMP_FOLDERS_LIST}
 
 Collect Evidences
-    [Documentation]    Moves the temporary working 
+    [Documentation]    Moves the contents of the temporary working 
     ...                directory of the unit to an evidence folder 
     ...                based on the previously configured TestID.
     ${TEST_EVIDENCES_FOLDER} =    Set Variable    ${EVIDENCES_FOLDER_PATH}/${TEST_ID}
     Remove Directory    ${TEST_EVIDENCES_FOLDER}    recursive=True
     Create Directory    ${TEST_EVIDENCES_FOLDER}
-    Move Directory    ${TESTS_TEMP_WORKING_DIR}    ${TEST_EVIDENCES_FOLDER}
+
+    ${ITEMS}=    List Directory    ${TESTS_TEMP_WORKING_DIR}
+    FOR    ${ITEM}    IN    @{ITEMS}
+        ${SOURCE}=    Set Variable    ${TESTS_TEMP_WORKING_DIR}/${ITEM}
+        ${DEST}=      Set Variable    ${TEST_EVIDENCES_FOLDER}/${ITEM}
+        Run Keyword And Ignore Error    Move File    ${SOURCE}    ${DEST}
+        Run Keyword And Ignore Error    Move Directory    ${SOURCE}    ${DEST}
+    END
+
     Log To Console    \nEvidences collected.
 
 Clean temporary working directory
