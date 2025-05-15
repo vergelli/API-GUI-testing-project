@@ -2,6 +2,7 @@
 Library     SeleniumLibrary
 Resource    ../../gui_settings.robot
 
+
 *** Keywords ***
 
 Start Web Session
@@ -9,6 +10,13 @@ Start Web Session
     Open Browser in Selenium Container
     Set GUI User Credentials From Env File
     Capture screenshot as "start_web_session"
+
+The login page should be visible
+    [Documentation]    Verifies that the login page is visible.
+    Wait Until Page Contains Element    css=${CSS_INPUT_USERNAME}
+    Element Should Be Visible           css=${CSS_INPUT_USERNAME}
+    Element Should Be Visible           css=${CSS_INPUT_PASSWORD}
+    Element Should Be Visible           css=${CSS_INPUT_SUBMIT}
 
 Enter valid credentials
     [Documentation]    Enters valid credentials into the login form.
@@ -41,3 +49,10 @@ An error message is shown during login
     Wait Until Page Contains Element    ${XPATH_ERROR_AT_LOGIN}
     Element Should Contain    ${XPATH_ERROR_AT_LOGIN}    do not match
     Capture screenshot as "error_message_at_login"
+
+Click on the left panel button
+    Click Element     css=#${CSS_BURGER_MENU_BUTTON}
+
+Click on logout button
+    Wait Until Page Contains Element    css=#${CSS_LOGOUT_BUTTON}
+    Click Element     css=#${CSS_LOGOUT_BUTTON}
