@@ -151,6 +151,6 @@ Partial Update
 
     When a creation booking request is sent and the booking id is saved
     And a headers with auth token is created
-    And i perform a partial update on the booking
+    And a partial update is performed on the booking
 
     Then only the modified field should be updated
