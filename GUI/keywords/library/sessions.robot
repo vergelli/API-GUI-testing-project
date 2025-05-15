@@ -24,7 +24,6 @@ Enter valid credentials
     Input Text    ${ID_PASSWORD_INPUT}     ${SAUCEDEMO_PASSWORD}
     Capture screenshot as "login_filled"
     Click Button  ${ID_LOGIN_BUTTON}
-    Capture screenshot as "after_login"
 
 Enter invalid credentials
     [Documentation]    Enters invalid credentials into the login form.
@@ -32,7 +31,6 @@ Enter invalid credentials
     Input Text    ${ID_PASSWORD_INPUT}     wrong
     Capture screenshot as "login_filled"
     Click Button  ${ID_LOGIN_BUTTON}
-    Capture screenshot as "after_login"
 
 Start Web Session And Login
     [Documentation]    Starts a web session and logs in with the provided credentials.
