@@ -34,6 +34,48 @@ Federico J. V._
    git clone https://github.com/your-user/PwC-challenge-project.git
    cd PwC-challenge-project
     ```
+    1.1 **Important**
+    There are two .env files that need to be set up once the project is cloned. **Let's create** the .env files in the specified folders.
+
+
+    **`/GUI/resources/.env`**
+
+    with the content:
+    <details>
+    <summary>Click me</summary>
+
+        SAUCEDEMO_USERNAME=standard_user
+        SAUCEDEMO_PASSWORD=secret_sauce
+
+    </details> 
+
+    **`/API/resources/.env`**
+    with the content:
+
+    <details>
+    <summary>Click me</summary>
+
+        API_USER=admin
+        API_PASS=password123
+
+    </details> 
+
+    **Tree locations:**
+    ```
+    ├── API
+    │   ├── api_settings.robot
+    │   ├── keywords
+    │   └── resources
+                └──.env
+    ```
+
+    ```
+    ├── GUI
+    │   ├── gui_settings.robot
+    │   ├── keywords
+    │   └── resources
+                └──.env
+    ```
 
 2. **Pull the Selenium image**
 
