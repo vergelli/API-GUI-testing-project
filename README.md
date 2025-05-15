@@ -14,7 +14,7 @@
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/your-user/PwC-challenge-project.git
+   git clone https://github.com/vergelli/PwC-challenge-project.git
    cd PwC-challenge-project
     ```
     1.1 **Important**
