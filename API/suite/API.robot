@@ -20,6 +20,7 @@ Test Setup       Run Keywords
 
 Test Teardown    Run Keywords
     ...                 Collect Evidences
+    ...                 Clean temporary working directory
 
 *** Test Cases ***
 
