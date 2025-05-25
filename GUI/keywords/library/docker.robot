@@ -5,15 +5,16 @@ Library    Process
 Resource    ../../gui_settings.robot
 
 *** Keywords ***
+
 Start Selenium Container
-    [Documentation]    Levanta el contenedor Selenium con navegador y VNC
+    [Documentation]    Starts the Selenium container with browser and VNC
     Log    ${ENV_DOCKER_FILE_PATH}
     Start Docker container from "${DOCKER_COMPOSE_FILE_PATH}" with environment variables "${ENV_DOCKER_FILE_PATH}"
     Log    Contenedor Selenium iniciado
 
 
 Stop Selenium Container
-    [Documentation]    Detiene y elimina el contenedor Selenium
+    [Documentation]    Stops and removes the Selenium container
     Stop docker container from "${DOCKER_COMPOSE_FILE_PATH}"
     Log    Contenedor Selenium detenido
 
@@ -34,9 +35,8 @@ Start Docker container from "${COMPOSE_PATH}" with environment variables "${ENV_
     Should Be Equal As Strings    ${RESULT.rc}    0    Failed to start Docker Compose: ${RESULT.stderr}
     RETURN    ${RESULT}
 
-
 Stop docker container from "${COMPOSE_PATH}"
-    [Documentation]     Detiene todos los servicios definidos en docker-compose.yml.
+    [Documentation]     Stops all the services defined in docker-compose.yml.
     ${COMPOSE_PATH_NORMALIZED} =    Normalize Path    ${COMPOSE_PATH}
     ${RESULT}=    Run Process    /usr/bin/docker    compose    -f    ${COMPOSE_PATH_NORMALIZED}    down     shell=${True}
     Should Be Equal As Strings    ${RESULT.rc}    0    Failed to stop Docker Compose: ${RESULT.stderr}

@@ -69,7 +69,7 @@ Collect Evidences
     Log To Console    \nEvidences collected.
 
 Clean temporary working directory
-    [Documentation]    Limpia el directorio de trabajo temporal a ser usado en la ejecucion de un test.
+    [Documentation]    Cleans the temporary working directory to be used in the test execution.
     Remove Directory    ${TESTS_TEMP_WORKING_DIR}    recursive=True
 
 #* ====================================================================================
