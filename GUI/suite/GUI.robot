@@ -10,20 +10,24 @@ Resource    ../keywords/library/browser.robot
 Resource    ../keywords/library/screenshots.robot
 Resource    ../../common/keywords/testing_environment.robot
 
-Test Setup       Run Keywords
+Suite Setup       Run Keywords
     ...                 Start Selenium Container
+
+Test Setup       Run Keywords
     ...                 Configure Test ID
     ...                 Clean temporary working directory
     ...                 Create temporary directory structure
 
-
 Test Teardown    Run Keywords
     ...                 Close Browser in Selenium Container
     ...                 Collect Evidences
-#     ...                 Stop Selenium Container
+    ...                 Clean temporary working directory
+
+Suite Teardown    Run Keywords
+    ...                 Stop Selenium Container
+
 
 *** Test Cases ***
-
 
 Valid Login
     [Documentation]     Confirm user can log in with valid credentials and reach product page.
