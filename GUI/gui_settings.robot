@@ -11,7 +11,6 @@ ${DOCKER_PATH}                                    ./GUI/resources/docker
 ${DOCKER_COMPOSE_FILE_NAME}                        docker-compose.yml
 
 ${DOCKER_COMPOSE_FILE_PATH}                       ${DOCKER_PATH}/${DOCKER_COMPOSE_FILE_NAME}
-${ENV_DOCKER_FILE_PATH}                           ${DOCKER_PATH}/.env
 
 #* ===================================================================
 #* Browsers
