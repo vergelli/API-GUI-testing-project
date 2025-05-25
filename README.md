@@ -1,8 +1,8 @@
-## 📁 Project Structure
+## Project Structure
 
 - [Installation](#installation)
 - [Executing the Tests](#executing-the-tests)
-  - [Run a Single Suite](#run-a-single-suite)
+  - [Run an Entire Suite](#run-an-entire-suite)
   - [Run Both Suites in Parallel](#run-both-suites-in-parallel)
   - [Run Just One Test](#run-just-one-test)
 - [What to Expect](#what-to-expect)
@@ -12,58 +12,61 @@
 
 ## Installation
 
-1. **Clone the repo**
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/vergelli/PwC-challenge-project.git
-   cd PwC-challenge-project
-    ```
-    1.1 **Important**
-    There are two .env files that need to be set up once the project is cloned. **Let's create** the .env files in the specified folders.
+   git clone https://github.com/vergelli/API-GUI-testing-project.git
+   cd API-GUI-testing-project/
+   ```
+
+1.1 **Set up environment variables**
+
+This project requires a few environment variables to run properly (e.g., user credentials or service endpoints). You can configure them in one of the following ways:
+
+ - Manual SetUp
+ - Using `.env` files
+
+The suite accept both aproaches.
+
+* **Manual setup**: Export the required variables in your terminal before running the scripts:
+
+  ```bash
+  export API_USER=admin
+  export API_PASS=password123
+  export SAUCEDEMO_USERNAME=standard_user
+  export SAUCEDEMO_PASSWORD=secret_sauce
+  ```
+
+* **Using `.env` files**:
+  There are two `.env` files already included for convenience:
+
+  * `GUI/resources/.env`
+  * `API/resources/.env`
+
+  These files contain the same environment variables (**commented**), organized per test suite.
+
+  **Directory structure:**
+
+  ```
+  ├── API
+  │   ├── api_settings.robot
+  │   ├── keywords
+  │   └── resources
+  │       └── .env
+
+  ├── GUI
+  │   ├── gui_settings.robot
+  │   ├── keywords
+  │   └── resources
+  │       └── .env
+  ```
+
+> **Security Note**
+> Storing credentials—even dummy ones—in version-controlled `.env` files is **not a secure practice**.
+> These are included here only for demonstration and ease of use during development.
+> In real-world scenarios, sensitive data should be managed securely using environment variables configured outside the repository, or through secret managers (e.g., AWS Secrets Manager, Vault, CI/CD secrets, etc.).
 
 
-    **`/GUI/resources/.env`**
 
-    with the content:
-    <details>
-    <summary>Click me</summary>
-
-        SAUCEDEMO_USERNAME=standard_user
-        SAUCEDEMO_PASSWORD=secret_sauce
-
-    </details> 
-
-    **`/API/resources/.env`**
-    with the content:
-
-    <details>
-    <summary>Click me</summary>
-
-        API_USER=admin
-        API_PASS=password123
-
-    </details> 
-
-    **Tree locations:**
-    ```
-    ├── API
-    │   ├── api_settings.robot
-    │   ├── keywords
-    │   └── resources
-                └──.env
-    ```
-
-    ```
-    ├── GUI
-    │   ├── gui_settings.robot
-    │   ├── keywords
-    │   └── resources
-                └──.env
-    ```
-
-    **Note:**
-    > Storing credentials—even dummy ones—in `.env` files within versioned folders isn't a secure practice.  
-    > However, due to limited time constraints, I opted for simplicity  over best practices.  
-    > In a real-world scenario, sensitive variables would be managed diferently.
 2. **Pull the Selenium image**
 
     Let’s pull the required Docker image:
@@ -82,8 +85,8 @@
    If you have **Miniconda**, you can run:
 
    ```bash
-   conda create --name PwCChallenge python=3.11
-   conda activate PwCChallenge
+   conda create --name gui_api_env python=3.11
+   conda activate gui_api_env
    ```
 
    Or use any other virtual environment manager of your choice.
@@ -98,31 +101,30 @@
 
 ## Executing the Tests
 
-### Run a Single Suite
+### Run an Entire Suite
 
-* **GUI only**
+It is **strongly recommended** to use the provided shell scripts to run the test suites, as they ensure a consistent environment and output structure:
 
+- **Run the GUI test suite**
   ```bash
-  robot GUI/suite/
+  bash run_gui_suite.sh
   ```
 
-* **API only**
+* **Run the API test suite**
 
   ```bash
-  robot API/suite/
+  bash run_api_suite.sh
   ```
+> You can still run the suites manually with `robot`, though it's not the preferred approach:
+>
+> ```bash
+> robot GUI/suite/
+> robot API/suite/
+> ```
 
-### Run Both Suites in Parallel
+### Run a Single Test Case
 
-To leverage parallel execution and save time:
-
-```bash
-bash run_challenge.sh
-```
-
-### Run Just One Test
-
-If you want to run a specific test case—say, **TC 4.1** from the **GUI** suite—you can use the test’s tag in the command:
+To execute a specific test case (e.g. **TC 4.1** from the **GUI** suite), use the `-i` flag with its tag:
 
 ```bash
 robot -i "TC 4.1 GUI" GUI/
@@ -130,17 +132,29 @@ robot -i "TC 4.1 GUI" GUI/
 
 Where:
 
-* `-i` is the "include" flag
-* `"TC 4.1 GUI"` is the tag of the test (note the double quotes)
-* `GUI/` is the folder where the test is located
+* **`-i`** is the "include" filter
+* **`"TC 4.1 GUI"`** is the test case tag (**quotes required**)
+* **`GUI/`** is the suite folder
 
-**Pro tip:**
-You can choose any **TC**, just append `GUI` or `API` to the tag.
-Example for API:
+**Example for API:**
 
 ```bash
 robot -i "TC 4.1 API" API/
 ```
+
+> Tags follow the format: `"TC X.Y SUITE"`, where `SUITE` is either `GUI` or `API`.
+
+
+### About Parallel Execution
+
+While a script for parallel execution is included (**`run_suite_parallel.sh`**), its use is *not recommended*:
+
+```bash
+bash run_suite_parallel.sh
+```
+Internally, it uses [`pabot`](https://github.com/robotframework/pabot)
+
+_⚠️ Although no inconsistencies were observed during test runs, **parallel execution has not been thoroughly validated**. Due to limited development time, the implementation lacks safeguards against race conditions involving temporary directories and shared artifacts. For now its use is risky._
 
 ---
 
@@ -168,26 +182,39 @@ After running the tests, **two key outcomes** will be visible:
 
 2. **Results Folder**
 
-   The **results** folder will contain subdirectories with test execution outputs. For this challenge, most folders will be empty, except in specific cases where I included GUI screenshots as evidence. This reflects my preference for balancing evidence storage with minimal overhead.
+   The **results** folder will contain subdirectories with test execution outputs. For this project, most folders will be empty, except in specific cases where I included GUI screenshots as evidence. This reflects my preference for balancing evidence storage with minimal overhead.
 
 ---
-
 ## Other Useful Commands
 
-- **Collect and Archive Reports**
+**Clean the Results Folder**
 
-   To save the report files (`log.html` and `report.html`) with a timestamp-based identifier and move them to the `results` folder, use:
+This command completely wipes the `results/` folder, including all archived reports and files:
+
+```bash
+make clean-results
+```
+It’s useful when:
+
+ - You want to start from a clean state
+ - You’ve accumulated multiple test runs and want to declutter
+
+> Warning: This action is destructive and irreversible.
+> Make sure to **save or backup** important reports before running it.
+___
+
+**Archive Reports Manually (Rarely Needed)**
+
+   In most cases, **you won’t need to run this manually**, since both `run_api_suite.sh` and `run_gui_suite.sh` already handle report archiving automatically.
+
+
+   However, if you ever run tests **manually** or **in parallel**, and `log.html` / `report.html` are left behind in the project rootDir, you can save them with a timestamp using:
 
    ```bash
-   make collect
+   make reports-save
    ```
 
-   This helps organize reports while preserving them for future reference.
+This command copies log.html, report.html, and output.xml into the `results/` directory and renames them with a timestamp to prevent overwriting previous results
 
-- **Clean the Results Folder**
-
-   To start with an empty `results` folder, run:
-
-   ```bash
-   make clean-results
-   ```
+Use this only if you see leftover report files after a non-standard run (e.g., using robot directly or experimenting with parallel execution).
+___
