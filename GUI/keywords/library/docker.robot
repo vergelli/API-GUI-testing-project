@@ -1,8 +1,10 @@
 *** Settings ***
 Library    OperatingSystem
 Library    Process
+Library    RequestsLibrary
 
 Resource    ../../gui_settings.robot
+Resource    ./utils.robot
 
 *** Keywords ***
 
@@ -10,13 +12,14 @@ Start Selenium Container
     [Documentation]    Starts the Selenium container with browser and VNC
     Log    ${ENV_DOCKER_FILE_PATH}
     Start Docker container from "${DOCKER_COMPOSE_FILE_PATH}" with environment variables "${ENV_DOCKER_FILE_PATH}"
-    Log    Contenedor Selenium iniciado
+    Wait Until Selenium Is Ready
+    Log    Selenium container started and ready
 
 
 Stop Selenium Container
     [Documentation]    Stops and removes the Selenium container
     Stop docker container from "${DOCKER_COMPOSE_FILE_PATH}"
-    Log    Contenedor Selenium detenido
+    Log    Selenium container stopped
 
 
 Restart Selenium Container
