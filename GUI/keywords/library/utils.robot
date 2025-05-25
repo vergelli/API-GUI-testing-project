@@ -1,6 +1,9 @@
 *** Settings ***
+
+Library    RequestsLibrary
 Library    OperatingSystem
 Library    Process
+
 
 Resource    ../../gui_settings.robot
 

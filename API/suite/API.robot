@@ -10,8 +10,6 @@ Resource    ../keywords/library/ops.robot
 Resource    ../keywords/library/utils.robot
 Resource    ../api_settings.robot
 
-Library     RequestsLibrary
-
 Test Setup       Run Keywords
     ...                 Configure Test ID
     ...                 Clean temporary working directory
