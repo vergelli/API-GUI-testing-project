@@ -1,4 +1,4 @@
-## Project Structure
+## Project explorer
 
 - [Installation](#installation)
 - [Executing the Tests](#executing-the-tests)
