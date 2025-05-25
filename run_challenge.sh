@@ -1,6 +1,8 @@
 # run_all_tests.sh
 #!/bin/bash
-export PYTHONWARNINGS="ignore::DeprecationWarning"
+export PYTHONWARNINGS=ignore::DeprecationWarning
+export PYTHONWARNINGS=ignore::RuntimeWarning:runpy
 mkdir -p results
 pabot --processes 2 --outputdir . --quiet --console none GUI/suite/ API/suite/
-rm -r tmpWorkdir/
+mv pabot_results/ results/
+mv .pabotsuitenames results/
