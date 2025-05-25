@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation    Precondition keywords.
+Documentation    Execution keywords.
 Resource    ./library/authentication.robot
 Resource    ../api_settings.robot
 
