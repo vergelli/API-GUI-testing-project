@@ -1,4 +1,3 @@
-# run_all_tests.sh
 #!/bin/bash
 export PYTHONWARNINGS=ignore::DeprecationWarning
 export PYTHONWARNINGS=ignore::RuntimeWarning:runpy
