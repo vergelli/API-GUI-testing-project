@@ -1,51 +1,28 @@
+# ========================
 # Variables
-TEST_TAG ?= "TC 1.1"
-TEST_DIR ?= GUI/
-EVIDENCE_DIR ?= "results/${TEST_TAG}/reports/tmpWorkdir"
+# ========================
+RESULTS_DIR    := results
 
-# Default target
-.PHONY: test
-test: clean run collect
-
-# Limpia evidencias anteriores
-.PHONY: clean
-clean:
-	rm -rf ${EVIDENCE_DIR}
-
-# Ejecuta los tests con la tag dada
-.PHONY: run
-run:
-	@echo "Running Robot tests with tag ${TEST_TAG}"
-	robot -i "${TEST_TAG}" ${TEST_DIR}
-	@echo "Tests completed. Collecting logs and reports."
-
-TIMESTAMP := $(shell date +"%Y%m%d_%H%M%S")
-RESULTS_DIR := results
-
-.PHONY: collect
-collect:
-	mkdir -p ${RESULTS_DIR}
-	cp log.html ${RESULTS_DIR}/log_${TIMESTAMP}.html
-	cp report.html ${RESULTS_DIR}/report_${TIMESTAMP}.html
-	cp output.xml ${RESULTS_DIR}/output_${TIMESTAMP}.xml
-	@echo "Logs collected with timestamp in ${RESULTS_DIR}"
-	@echo "Deleting original report files"
-	rm -f log.html report.html output.xml
-
+# ========================
+# Limpieza OJO!
+# ========================
 .PHONY: clean-results
 clean-results:
-	@echo "Deleting all results"
-	rm -rf results/*
-	@echo "✔️  'results/' clean."
+	@echo "Borrando todos los resultados previos..."
+	@rm -rf ${RESULTS_DIR}/* ${RESULTS_DIR}/.[!.]* ${RESULTS_DIR}/..?*
+	@echo "✔️  Carpeta '${RESULTS_DIR}/' limpia."
 
-# Corre la suite completa de GUI
-.PHONY: gui
-gui:
-	@echo "Running GUI suite..."
-	robot GUI/suite/
-
-# Corre la suite completa de API
-.PHONY: api
-api:
-	@echo "Running API suite..."
-	robot API/suite/
+# ========================
+# Guardado de reportes con un ts por las dudas
+# ========================
+.PHONY: reports-save
+reports-save:
+	@echo "Guardando reportes..."
+	@TIMESTAMP=$$(date +"%Y%m%d_%H%M%S"); \
+	mkdir -p ${RESULTS_DIR}; \
+	cp log.html     ${RESULTS_DIR}/log_$${TIMESTAMP}.html; \
+	cp report.html  ${RESULTS_DIR}/report_$${TIMESTAMP}.html; \
+	cp output.xml   ${RESULTS_DIR}/output_$${TIMESTAMP}.xml; \
+	echo "Reportes guardados en '${RESULTS_DIR}/' con timestamp: $${TIMESTAMP}"; \
+	echo "Eliminando archivos temporales..."; \
+	rm -f log.html report.html output.xml
