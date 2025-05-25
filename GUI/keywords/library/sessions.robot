@@ -9,7 +9,6 @@ Start Web Session
     [Documentation]    Starts a web session.
     Open Browser in Selenium Container
     Set GUI User Credentials From Env File
-    Capture screenshot as "start_web_session"
 
 The login page should be visible
     [Documentation]    Verifies that the login page is visible.
