@@ -69,7 +69,7 @@ Collect Evidences
     Log To Console    \nEvidences collected.
 
 Clean temporary working directory
-    [Documentation]    Limpia el directorio de trabajo temporal a ser usado en la ejecucion de un test.
+    [Documentation]    Cleans the temporary working directory to be used in the test execution.
     Remove Directory    ${TESTS_TEMP_WORKING_DIR}    recursive=True
 
 #* ====================================================================================
@@ -80,32 +80,22 @@ Load Shared Environment Variables
     Log    ${msg}
 
 #* ====================================================================================
-Load API Test Environment Variables
-    [Documentation]    Loads environment variables specific to API tests from the .env 
-    ...                file defined in ${API_ENV_FILE_PATH}.
-    ${msg}=    Load Env File    ${API_ENV_FILE_PATH}
-    Log    ${msg}
 
 Set API User Credentials From Env File
-    [Documentation]    Loads the GUI test environment variables for credentials.
-    Load API Test Environment Variables
-    ${API_USER} =    Get Env Variable    API_USER
-    ${API_PASS} =    Get Env Variable    API_PASS
+    [Documentation]    Attempts to use API environment variables if they already exist. 
+    ...                If not, it loads them from a file.
+    ${API_USER}=    Get Env Variable    API_USER    ${API_ENV_FILE_PATH}
+    ${API_PASS}=    Get Env Variable    API_PASS    ${API_ENV_FILE_PATH}
     Set Test Variable    ${API_USER}    ${API_USER}
     Set Test Variable    ${API_PASS}    ${API_PASS}
 
 #* ====================================================================================
-Load GUI Test Environment Variables
-    [Documentation]    Loads environment variables specific to GUI tests from the .env 
-    ...                file defined in ${GUI_ENV_FILE_PATH}.
-    ${msg}=    Load Env File    ${GUI_ENV_FILE_PATH}
-    Log    ${msg}
 
 Set GUI User Credentials From Env File
-    [Documentation]    Loads the GUI test environment variables for credentials.
-    Load GUI Test Environment Variables
-    ${SAUCEDEMO_USERNAME}=    Get Env Variable    SAUCEDEMO_USERNAME
-    ${SAUCEDEMO_PASSWORD}=    Get Env Variable    SAUCEDEMO_PASSWORD
+    [Documentation]    Attempts to use  GUI environment variables if they already exist. 
+    ...                If not, it loads them from a file.
+    ${SAUCEDEMO_USERNAME}=    Get Env Variable    SAUCEDEMO_USERNAME    ${GUI_ENV_FILE_PATH}
+    ${SAUCEDEMO_PASSWORD}=    Get Env Variable    SAUCEDEMO_PASSWORD    ${GUI_ENV_FILE_PATH}
     Set Test Variable    ${SAUCEDEMO_USERNAME}    ${SAUCEDEMO_USERNAME}
     Set Test Variable    ${SAUCEDEMO_PASSWORD}    ${SAUCEDEMO_PASSWORD}
 
