@@ -29,12 +29,12 @@ The suite accept both aproaches.
 
 * **Manual setup**: Export the required variables in your terminal before running the scripts:
 
-  ```bash
-  export API_USER=admin
-  export API_PASS=password123
-  export SAUCEDEMO_USERNAME=standard_user
-  export SAUCEDEMO_PASSWORD=secret_sauce
-  ```
+```bash
+export API_USER=admin \
+&& export API_PASS=password123 \
+&& export SAUCEDEMO_USERNAME=standard_user \
+&& export SAUCEDEMO_PASSWORD=secret_sauce
+```
 
 * **Using `.env` files**:
   There are two `.env` files already included for convenience:
